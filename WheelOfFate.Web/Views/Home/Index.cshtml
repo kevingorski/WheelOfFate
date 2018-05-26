@@ -1,0 +1,11 @@
+﻿<div id="root" class="main-container" />
+@section scripts {
+    @if (Program.IsDevelopment)
+    {
+        <script src="http://localhost:3000/dist/bundle.js"></script>
+    }
+    else
+    {
+        <script src="~/dist/bundle.js"></script>
+    }
+}

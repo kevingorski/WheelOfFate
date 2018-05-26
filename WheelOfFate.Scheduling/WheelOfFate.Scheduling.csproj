@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NodaTime" Version="2.3.0" />
+    <PackageReference Include="Autofac" Version="4.8.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Engineers\" />
+    <Folder Include="SupportSchedules\" />
+    <Folder Include="CandidateSelection\" />
+  </ItemGroup>
+</Project>

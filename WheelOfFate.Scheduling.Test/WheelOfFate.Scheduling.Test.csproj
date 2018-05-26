@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+    <AssemblyName>aspnet-core-dotnet-core-test</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0-preview-20170628-02" />
+    <PackageReference Include="xunit" Version="2.2.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+    <PackageReference Include="NodaTime" Version="2.3.0" />
+    <PackageReference Include="Moq" Version="4.8.2" />
+    <PackageReference Include="Autofac" Version="4.8.1" />
+    <PackageReference Include="Autofac.Extras.Moq" Version="4.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WheelOfFate.Scheduling\WheelOfFate.Scheduling.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Models\EndgameCandidateFactoryTest.cs" />
+    <Compile Remove="Models\SupportScheduleFactoryTest.cs" />
+    <Compile Remove="Engineers\EngineerTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CandidateSelection\" />
+  </ItemGroup>
+</Project>

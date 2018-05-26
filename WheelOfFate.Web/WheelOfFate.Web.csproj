@@ -1,0 +1,62 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>aspnet-core-dotnet-core</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.0.3" />
+    <PackageReference Include="NodaTime" Version="2.3.0" />
+    <PackageReference Include="Autofac" Version="4.8.1" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.2.2" />
+    <PackageReference Include="NodaTime.Serialization.JsonNet" Version="2.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="2.4.0" />
+    <PackageReference Include="Swashbuckle.NodaTime.AspNetCore" Version="1.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\Shift.cs" />
+    <Compile Remove="Models\MinimumShiftBreak.cs" />
+    <Compile Remove="Models\SupportSchedule.cs" />
+    <Compile Remove="Models\EndgameCandidateFactory.cs" />
+    <Compile Remove="Models\SupportScheduleFactory.cs" />
+    <Compile Remove="Models\DailySupportCandidateSelector.cs" />
+    <Compile Remove="ModelsModule.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\wheel-of-fate\.gitignore" />
+    <Content Remove="wwwroot\wheel-of-fate\README.md" />
+    <Content Remove="wwwroot\wheel-of-fate\package-lock.json" />
+    <Content Remove="wwwroot\wheel-of-fate\package.json" />
+    <Content Remove="wwwroot\wheel-of-fate\yarn.lock" />
+    <Content Remove="wwwroot\wheel-of-fate\public\favicon.ico" />
+    <Content Remove="wwwroot\wheel-of-fate\public\index.html" />
+    <Content Remove="wwwroot\wheel-of-fate\public\manifest.json" />
+    <Content Remove="wwwroot\wheel-of-fate\src\App.css" />
+    <Content Remove="wwwroot\wheel-of-fate\src\App.js" />
+    <Content Remove="wwwroot\wheel-of-fate\src\App.test.js" />
+    <Content Remove="wwwroot\wheel-of-fate\src\index.css" />
+    <Content Remove="wwwroot\wheel-of-fate\src\index.js" />
+    <Content Remove="wwwroot\wheel-of-fate\src\logo.svg" />
+    <Content Remove="wwwroot\wheel-of-fate\src\registerServiceWorker.js" />
+    <Content Remove="bower.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WheelOfFate.Scheduling\WheelOfFate.Scheduling.csproj" />
+    <ProjectReference Include="..\WheelOfFate.Scheduling\WheelOfFate.Scheduling.csproj" />
+  </ItemGroup>
+</Project>
