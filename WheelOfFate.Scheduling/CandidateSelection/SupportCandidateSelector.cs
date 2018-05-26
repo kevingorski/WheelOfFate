@@ -41,36 +41,6 @@ namespace WheelOfFate.Scheduling.CandidateSelection
                 scheduleDate,
                 supportScheduleSpecification.RequireSingleShiftPerEngineerPerDay,
                 supportScheduleSpecification.RequireTwoShiftsInTwoWeeks);
-            
-            //if (supportScheduleSpecification.RequireTwoShiftsInTwoWeeks)
-            //{
-            //    var recentlyScheduledEngineers = _supportScheduleRepository.List(scheduleDate.PlusDays(-13), scheduleDate.PlusDays(-1))
-            //       .SelectMany(schedule => schedule.Engineers)
-            //       .GroupBy(engineer => engineer.Id)
-            //       .ToDictionary(group => group.Key);
-
-            //    // Remove candidates already scheduled twice
-            //    supportCandidates.RemoveAll(candidate =>
-            //        recentlyScheduledEngineers.ContainsKey(candidate.Id)
-            //        && recentlyScheduledEngineers[candidate.Id].Count() > 1);
-
-            //    if (!supportScheduleSpecification.RequireSingleShiftPerEngineerPerDay)
-            //    {
-            //        // Add additional entry for candidates that haven't been scheduled recently
-            //        supportCandidates = supportCandidates.Concat(
-            //            supportCandidates.Where(candidate =>
-            //                !recentlyScheduledEngineers.ContainsKey(candidate.Id))).ToList();
-            //    }
-            //}
-            //else
-            //{
-            //    // No two shifts in two weeks requirement
-            //    if (!supportScheduleSpecification.RequireSingleShiftPerEngineerPerDay)
-            //    {
-            //        // Double up
-            //        supportCandidates = supportCandidates.Concat(supportCandidates).ToList();
-            //    }
-            //}
 
             return supportCandidates.ToList();
         }

@@ -24,6 +24,7 @@
     <Compile Remove="Models\EndgameCandidateFactoryTest.cs" />
     <Compile Remove="Models\SupportScheduleFactoryTest.cs" />
     <Compile Remove="Engineers\EngineerTests.cs" />
+    <Compile Remove="SupportCandidateSelectorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CandidateSelection\" />

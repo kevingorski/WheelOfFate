@@ -60,7 +60,7 @@ namespace WheelOfFate.Scheduling
         }
 
         /// <summary>
-        /// Start this instance - schedule the previous two weeks
+        /// Start this instance - schedule enough days to look interesting
         /// </summary>
         public void Start()
         {

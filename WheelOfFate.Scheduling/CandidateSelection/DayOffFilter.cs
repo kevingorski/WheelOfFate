@@ -13,7 +13,7 @@ namespace WheelOfFate.Scheduling.CandidateSelection
 
         public DayOffFilter(ISupportScheduleRepository supportScheduleRepository)
         {
-            this._supportScheduleRepository = supportScheduleRepository;
+            _supportScheduleRepository = supportScheduleRepository;
         }
 
         public IEnumerable<Engineer> Filter(IEnumerable<Engineer> engineers, LocalDate scheduleDate)

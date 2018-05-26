@@ -11,10 +11,20 @@ using Autofac.Extensions.DependencyInjection;
 
 namespace WheelOfFate.Web
 {
+    /// <summary>
+    /// The entry point for WheelOfFate.Web
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Is the program running in development mode?
+        /// </summary>
         public static bool IsDevelopment = false;
-        
+
+        /// <summary>
+        /// The entry point of the program, where the program control starts and ends.
+        /// </summary>
+        /// <param name="args">The command-line arguments.</param>
         public static void Main(string[] args)
         {
             var host = new WebHostBuilder()

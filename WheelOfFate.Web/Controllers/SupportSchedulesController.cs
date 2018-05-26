@@ -8,6 +8,9 @@ using WheelOfFate.Scheduling.SupportSchedules;
 
 namespace WheelOfFate.Web.Controllers
 {
+    /// <summary>
+    /// Support schedules controller.
+    /// </summary>
     [Route("api/[controller]")]
     public class SupportSchedulesController : Controller
     {
@@ -15,6 +18,12 @@ namespace WheelOfFate.Web.Controllers
         private readonly ISupportScheduleRepository _supportScheduleRepository;
         private readonly SupportScheduler _supportScheduler;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:WheelOfFate.Web.Controllers.SupportSchedulesController"/> class.
+        /// </summary>
+        /// <param name="calendar">Calendar.</param>
+        /// <param name="supportScheduleRepository">Support schedule repository.</param>
+        /// <param name="supportScheduler">Support scheduler.</param>
         public SupportSchedulesController(
             ICalendar calendar,
             ISupportScheduleRepository supportScheduleRepository,
@@ -25,7 +34,15 @@ namespace WheelOfFate.Web.Controllers
             _supportScheduler = supportScheduler;
         }
 
-        [HttpGet("{date}")]
+        /// <summary>
+        /// Get the support schedule for the specified date (if any).
+        /// </summary>
+        /// <returns>The daily support schedule.</returns>
+        /// <param name="date">The date.</param>
+        /// <response code="200">Returns the matching schedule.</response>
+        /// <response code="400">If no date was supplied or the date supplied could not be parsed as an ISO date</response>
+        /// <response code="404">If no schedule could be found with the given date.</response>
+        [HttpGet("{date}", Name = "GetSupportSchedule")]
         [ProducesResponseType(typeof(DailySchedule), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -53,6 +70,14 @@ namespace WheelOfFate.Web.Controllers
             return Ok(dailySchedule);
         }
 
+        /// <summary>
+        /// List the support schedules between the specified minDate and maxDate (or last two weeks through next week if not supplied).
+        /// </summary>
+        /// <returns>The list of support schedules.</returns>
+        /// <param name="minDate">Minimum date.</param>
+        /// <param name="maxDate">Maximum date.</param>
+        /// <response code="200">Returns the matching schedules.</response>
+        /// <response code="400">If one or both of the dates supplied could not be parsed as ISO dates</response>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<DailySchedule>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -92,6 +117,26 @@ namespace WheelOfFate.Web.Controllers
             return Ok(_supportScheduleRepository.List(from, to));
         }
 
+        /// <summary>
+        /// Generate a random support schedule that conforms to the given rules for the given date.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /SupportSchedules
+        ///     {
+        ///         date: '2018-01-01',
+        ///         requireSingleShiftPerEngineerPerDay: true,
+        ///         requireDayOffBetweenDaysWithShifts: true,
+        ///         requireTwoShiftsInTwoWeeks: true
+        ///     }
+        /// 
+        /// </remarks>
+        /// <returns>The generated support schedule.</returns>
+        /// <param name="supportScheduleSpecification">The support schedule specification.</param>
+        /// <response code="201">Returns the generated schedule.</response>
+        /// <response code="400">If the specification was not supplied or the date being scheduled does not pass validation</response>
+        /// <response code="409">If a random support schedule could not be generated with the given rules enabled.</response>  
         [HttpPost]
         [ProducesResponseType(typeof(DailySchedule), (int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -118,7 +163,7 @@ namespace WheelOfFate.Web.Controllers
                 return BadRequest(new { ex.Message });
             }
 
-            return Created(string.Format("http://{0}/api/supportschedules/{1}", Request.Host, LocalDatePattern.Iso.Format(value.Date)), value);
+            return CreatedAtRoute("GetSupportSchedule", new { date = LocalDatePattern.Iso.Format(value.Date) }, value);
         }
     }
 }

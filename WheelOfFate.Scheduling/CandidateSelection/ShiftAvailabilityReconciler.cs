@@ -22,42 +22,34 @@ namespace WheelOfFate.Scheduling.CandidateSelection
             bool requireSingleShiftPerEngineerPerDay,
             bool requireTwoShiftsInTwoWeeks)
         {
-            Dictionary<int, IGrouping<int, Engineer>> recentlyScheduledEngineers;
+            if (requireTwoShiftsInTwoWeeks)
+            {
+                var recentlyScheduledEngineers = GetRecentlyScheduledEngineers(scheduleDate);
+                var engineersNotRecentlyScheduledTwice = engineers.Where(engineer =>
+                       !recentlyScheduledEngineers.ContainsKey(engineer.Id)
+                       || recentlyScheduledEngineers[engineer.Id].Count() < 2);
+
+                if (requireSingleShiftPerEngineerPerDay)
+                {
+                    // Single shift, two in two weeks = leave only candidates not already scheduled twice
+                    return engineersNotRecentlyScheduledTwice;
+                }
+
+                // Not single shift, two in two weeks = 2 - number of times seen
+                var engineersNotRecentlyScheduledAtAll = engineers.Where(engineer =>
+                   !recentlyScheduledEngineers.ContainsKey(engineer.Id));
+
+                return engineersNotRecentlyScheduledTwice.Concat(engineersNotRecentlyScheduledAtAll);
+            }
 
             if(requireSingleShiftPerEngineerPerDay)
             {
-                if (requireTwoShiftsInTwoWeeks)
-                {
-                    // Single shift, two in two weeks = remove candidates already scheduled twice
-                    recentlyScheduledEngineers = GetRecentlyScheduledEngineers(scheduleDate);
-
-                    return engineers.Where(engineer =>
-                                           !recentlyScheduledEngineers.ContainsKey(engineer.Id)
-                                           || recentlyScheduledEngineers[engineer.Id].Count() < 2);
-                }
-                else
-                {
-                    // Single shift, not two in two weeks = no change
-                    return engineers;
-                }
+                // Single shift, not two in two weeks = no change
+                return engineers;
             }
 
             // Not single shift, not two in two weeks = double all
-            if(!requireTwoShiftsInTwoWeeks)
-            {
-                return engineers.Concat(engineers);
-            }
-
-            // Not single shift, two in two weeks = 2 - number of times seen
-            recentlyScheduledEngineers = GetRecentlyScheduledEngineers(scheduleDate);
-
-            var atLeastOneShiftAvailableEngineers = engineers.Where(engineer =>
-               !recentlyScheduledEngineers.ContainsKey(engineer.Id)
-               || recentlyScheduledEngineers[engineer.Id].Count() < 2);
-            var twoShiftsAvailableEngineers = engineers.Where(engineer =>
-               !recentlyScheduledEngineers.ContainsKey(engineer.Id));
-            
-            return atLeastOneShiftAvailableEngineers.Concat(twoShiftsAvailableEngineers);
+            return engineers.Concat(engineers);
         }
 
         private Dictionary<int, IGrouping<int, Engineer>> GetRecentlyScheduledEngineers(LocalDate scheduleDate)
